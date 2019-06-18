@@ -21,6 +21,7 @@ public class QuizAppController {
     @PostMapping("/create")
     public void create(@RequestParam String question, @RequestParam boolean answer) {
         String quiz = question + ":" + answer;
+        // クイズを追加
         quizzes.add(quiz);
     }
 }
