@@ -37,9 +37,12 @@ public class QuizAppController {
             // クイズが見つかった場合
             if (quiz.getQuestion().equals(question)) {
                 // 正解の場合
-                return "見つかった!：" + quiz.getQuestion();
-                // 不正解の場合
-
+                if(quiz.isAnswer() == answer) {
+                    return "正解！";
+                } else {
+                  // 不正解の場合
+                  return "不正解！";
+                }
             }
         }
         // クイズが見つからなかった場合
