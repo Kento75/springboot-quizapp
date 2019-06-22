@@ -6,6 +6,7 @@ public class Quiz {
      * 問題文
      */
     private String question;
+
     /**
      * クイズ正解
      */
@@ -22,5 +23,12 @@ public class Quiz {
 
     public boolean isAnswer() {
         return answer;
+    }
+
+    // 問題文と答えを文字列として返却
+    // 例： 問題文 ○
+    public String toString() {
+        String marubatsu = answer ? "○" : "×";
+        return question + " " + marubatsu;
     }
 }
