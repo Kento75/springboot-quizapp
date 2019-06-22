@@ -27,6 +27,7 @@ public class Quiz {
 
     // 問題文と答えを文字列として返却
     // 例： 問題文 ○
+    @Override
     public String toString() {
         String marubatsu = answer ? "○" : "×";
         return question + " " + marubatsu;
