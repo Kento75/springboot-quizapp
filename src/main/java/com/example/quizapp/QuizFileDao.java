@@ -12,6 +12,8 @@ public class QuizFileDao {
 
     private static final String FILE_PATH = "quizzes.txt";
 
+
+    // クイズファイル書き出し処理
     public void write(List<Quiz> quizzes) throws IOException {
 
         List<String> lines = new ArrayList<>();
