@@ -13,6 +13,8 @@ public class QuizAppController {
 
     private List<Quiz> quizzes = new ArrayList<>();
 
+    private QuizFileDao quizFileDao = new QuizFileDao();
+
     // クイズ一覧表示
     @GetMapping("/show")
     public List<Quiz> show() {
@@ -47,5 +49,11 @@ public class QuizAppController {
         }
         // クイズが見つからなかった場合
         return "";
+    }
+
+    // クイズデータをファイルに保存
+    @PostMapping("/save")
+    public String save() {
+        quizFileDao.write();
     }
 }
