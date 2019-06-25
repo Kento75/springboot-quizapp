@@ -64,7 +64,7 @@ public class QuizAppController {
         }
     }
 
-    //
+    // クイズファイルデータ取得処理
     @GetMapping("/load")
     public String load() {
         try {
