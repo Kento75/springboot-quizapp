@@ -32,4 +32,12 @@ public class Quiz {
         String marubatsu = answer ? "○" : "×";
         return question + " " + marubatsu;
     }
+
+    // @param line >> 問題文 ○
+    public static Quiz fromString(String line) {
+        String question = line.substring(0, line.length() - 2);
+        boolean answer = line.endsWith("○");
+
+        return new Quiz(question, answer);
+    }
 }
