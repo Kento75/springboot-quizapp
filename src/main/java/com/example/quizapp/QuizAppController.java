@@ -3,6 +3,7 @@ package com.example.quizapp;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,11 +36,13 @@ public class QuizAppController {
 
     // クイズ作成
     @PostMapping("/create")
-    public void create(@RequestParam String question, @RequestParam boolean answer) {
+    public String create(@RequestParam String question, @RequestParam boolean answer) {
         Quiz quiz = new Quiz(question, answer);
 
         // クイズを追加
         quizzes.add(quiz);
+
+        return "redirect:/page/show";
     }
 
     // クイズ回答
@@ -65,25 +68,29 @@ public class QuizAppController {
 
     // クイズデータをファイルに保存
     @PostMapping("/save")
-    public String save() {
+    public String save(RedirectAttributes attributes) {
         try {
             quizFileDao.write(quizzes);
-            return "ファイルに保存しました";
+            attributes.addFlashAttribute("successMessage","ファイルに保存しました");
         } catch (IOException e) {
             e.printStackTrace();
-            return "ファイルの保存に失敗しました";
+            attributes.addFlashAttribute("errorMessage","ファイルの保存に失敗しました");
         }
+
+        return "redirect:/page/show";
     }
 
     // クイズファイルデータ取得処理
     @GetMapping("/load")
-    public String load() {
+    public String load(RedirectAttributes attributes) {
         try {
             quizzes = quizFileDao.read();
-            return "ファイルを読み込みました";
+            attributes.addFlashAttribute("successMessage", "ファイルを読み込みました");
         } catch (IOException e) {
             e.printStackTrace();
-            return "ファイルの読み込みに失敗しました";
+            attributes.addFlashAttribute("errorMessage", "ファイルの読み込みに失敗しました");
         }
+
+        return "redirect:/page/show";
     }
 }
