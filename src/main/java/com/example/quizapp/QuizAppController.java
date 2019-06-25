@@ -19,11 +19,21 @@ public class QuizAppController {
     private QuizFileDao quizFileDao = new QuizFileDao();
 
     // ランダムにクイズを１件取得
+    // クイズ画面表示
     @GetMapping("/quiz")
-    public Quiz quiz() {
-        int index = new Random().nextInt(quizzes.size());
+    public String quiz(Model model) {
 
-        return quizzes.get(index);
+        int index = 0;
+        if(quizzes.size() != 0) {
+            index = new Random().nextInt(quizzes.size());
+            model.addAttribute("quiz", quizzes.get(index));
+        } else {
+            model.addAttribute("quiz", null);
+        }
+
+
+        // クイズ画面
+        return "quiz";
     }
 
     // クイズ一覧画面表示
@@ -47,23 +57,24 @@ public class QuizAppController {
 
     // クイズ回答
     @GetMapping("/check")
-    public String check(@RequestParam String  question, @RequestParam boolean answer) {
-        // TODO: 回答が正しいかどうかチェックして、結果を返却
+    public String check(Model model, @RequestParam String  question, @RequestParam boolean answer) {
         // 指定されたquestionを登録済みのクイズから検索
         for(Quiz quiz : quizzes) {
+            // 問題を追加
+            model.addAttribute("quiz", quiz);
+
             // クイズが見つかった場合
             if (quiz.getQuestion().equals(question)) {
                 // 正解の場合
                 if(quiz.isAnswer() == answer) {
-                    return "正解！";
+                    model.addAttribute("result", "正解！");
                 } else {
-                  // 不正解の場合
-                  return "不正解！";
+                    // 不正解の場合
+                    model.addAttribute("result", "不正解！");
                 }
             }
         }
-        // クイズが見つからなかった場合
-        return "";
+        return "answer";
     }
 
     // クイズデータをファイルに保存

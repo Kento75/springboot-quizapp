@@ -16,13 +16,16 @@
     <title>◯×クイズ</title>
 </head>
 <body>
-<div class="container">
-    <p>問題文１</p>
-    <form method="GET">
-        <input type="hidden" name="question" value="問題文１">
+<div th:if="${quiz} != null" class="container">
+    <p th:text="${quiz.question}"></p>
+    <form th:action="@{/page/check}" method="GET">
+        <input type="hidden" name="question" th:value="${quiz.question}">
         <button class="btn btn-success" name="answer" value="true">◯</button>
         <button class="btn btn-danger" name="answer" value="false">×</button>
     </form>
+</div>
+<div th:if="${quiz} == null" class="container">
+    <p>クイズが一問もありません。</p>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
