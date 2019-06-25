@@ -29,6 +29,7 @@ public class QuizAppController {
     @GetMapping("/show")
     public String show(Model model) {
         model.addAttribute("quizzes", quizzes);
+        // list.html をレスポンス
         return "list";
     }
 
