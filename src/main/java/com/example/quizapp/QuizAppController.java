@@ -63,4 +63,16 @@ public class QuizAppController {
             return "ファイルの保存に失敗しました";
         }
     }
+
+    //
+    @GetMapping("/load")
+    public String load() {
+        try {
+            quizzes = quizFileDao.read();
+            return "ファイルを読み込みました";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "ファイルの読み込みに失敗しました";
+        }
+    }
 }
